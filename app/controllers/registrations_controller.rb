@@ -12,7 +12,7 @@ respond_to :json #for api
     yield resource if block_given?
 
    if resource_saved
-     UserMailer.registration_confirmation(resource).deliver
+ 
   
      if resource.active_for_authentication?
         set_flash_message :notice, :signed_up

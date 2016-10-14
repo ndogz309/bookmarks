@@ -1,4 +1,6 @@
 Usersapi::Application.routes.draw do
+  resources :links
+
   root :to => 'pages#home'
 
 

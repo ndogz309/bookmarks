@@ -14,6 +14,10 @@ before_create :generate_authentication_token!
          :recoverable, :rememberable, :trackable, :validatable
 
 
+has_many :links
+
+
+
 def generate_authentication_token!
     begin
       self.auth_token = Devise.friendly_token
