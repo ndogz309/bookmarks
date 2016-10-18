@@ -8,9 +8,17 @@ class LinksController < ApplicationController
     respond_with(@links)
   end
 
+  # def show
+  #   respond_with(@link)
+  # end
+
   def show
-    respond_with(@link)
+    @link = Link.find(params.fetch(:id))
+    @content= Pismo::Document.new(@link.url).body
   end
+
+
+
 
   def new
 @link=current_user.links.build
@@ -22,14 +30,23 @@ class LinksController < ApplicationController
   def edit
   end
 
+
   def create
-    @link = current_user.links.build(link_params)
-    if @link.save
-      redirect_to @link, notice: 'Link was successfully created.'
-    else
-      render :new
-    end
+    UrlParser.generate_link(params.fetch(:link).fetch(:url))
+    flash[:notice] = "Link was successfully created"
+    redirect_to links_path
   end
+
+
+
+  # def create
+  #   @link = current_user.links.build(link_params)
+  #   if @link.save
+  #     redirect_to @link, notice: 'Link was successfully created.'
+  #   else
+  #     render :new
+  #   end
+  # end
 
   def update
     @link.update(link_params)
@@ -53,6 +70,6 @@ def correct_user
     end
 
     def link_params
-      params.require(:link).permit(:url)
+      params.require(:link).permit(:url,:title)
     end
 end

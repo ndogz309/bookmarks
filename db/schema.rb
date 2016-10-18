@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014204106) do
+ActiveRecord::Schema.define(version: 20161018022610) do
 
   create_table "links", force: true do |t|
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "title"
   end
 
   add_index "links", ["user_id"], name: "index_links_on_user_id"

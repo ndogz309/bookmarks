@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem "pismo"
 gem 'active_model_serializers'
 
 gem 'devise'
