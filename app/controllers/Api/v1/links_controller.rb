@@ -15,7 +15,7 @@ include Authenticable
  def index
     @links = params[:link_ids].present? ? Link.find(params[:link_ids]) : Link.all
     #link=links.last
-    render json: @links,status: 200
+    render json: @links,status: 200 , location: [:api, :v1, link]
 
    # respond_with links.last
   end
@@ -40,6 +40,7 @@ def destroy
 
 
   def create
+
     link = current_user.links.build(link_params)
     if link.save
       render json: link, status: 201, location: [:api, :v1, link]
