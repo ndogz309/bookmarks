@@ -13,11 +13,11 @@ before_action :authenticate_with_token!, only: [:create,:update,:destroy]
  #  end
 
  def index
-    @links = params[:link_ids].present? ? Link.find(params[:link_ids]) : Link.all
-    #link=links.last
-    render json: @links,status: 200 , location: [:api, :v1, link]
+    links = params[:link_ids].present? ? Link.find(params[:link_ids]) : Link.all
+    link=links.last
+    render json: links, status: 200 , location: [:api, :v1, link]
 
-   # respond_with links.last
+   #respond_with links.last
   end
 
 
