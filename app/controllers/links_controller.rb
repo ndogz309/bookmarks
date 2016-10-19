@@ -1,4 +1,9 @@
 class LinksController < ApplicationController
+
+require 'nokogiri'
+require 'open-uri'
+
+
   before_action :set_link, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -16,12 +21,21 @@ class LinksController < ApplicationController
     @link = Link.find(params.fetch(:id))
     #@content= Pismo::Document.new(@link.url).body
   #  @content= Pismo::Document.new(@link.url).body
+#doc = Nokogiri::HTML(open(@link.url))
 doc = Nokogiri::HTML(open(@link.url))
 #doc = Nokogiri::HTML(open('http://www.nokogiri.org/tutorials/installing_nokogiri.html'))
+@test=doc.xpath.to_html
 
-    end
+#@content=doc
 
-@content=doc
+
+doc2 = Nokogiri::HTML(open(@link.url)) do |config|
+  config.options = Nokogiri::XML::ParseOptions::STRICT | Nokogiri::XML::ParseOptions::NONET
+end
+
+@content=doc.to_html
+
+
   end
 
 
