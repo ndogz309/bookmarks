@@ -5,5 +5,19 @@
   <%= @link.url %>
 </p>
 
+<%= @link.title %>
+
+
+<% if @content != nil %>  
+
+it exisits
+
+
+<% end %>
+
+<%= @content %>
+
+
+
 <%= link_to 'Edit', edit_link_path(@link) %> |
 <%= link_to 'Back', links_path %>

@@ -14,7 +14,14 @@ class LinksController < ApplicationController
 
   def show
     @link = Link.find(params.fetch(:id))
-    @content= Pismo::Document.new(@link.url).body
+    #@content= Pismo::Document.new(@link.url).body
+  #  @content= Pismo::Document.new(@link.url).body
+doc = Nokogiri::HTML(open(@link.url))
+#doc = Nokogiri::HTML(open('http://www.nokogiri.org/tutorials/installing_nokogiri.html'))
+
+    end
+
+@content=doc
   end
 
 
