@@ -8,10 +8,6 @@ class UrlParser
 doc2 = Nokogiri::HTML(open(url))
 @content=doc2.to_html
 
-
-
-
-
     Link.create(title: doc.title, url: url,html:@content)
   end
 

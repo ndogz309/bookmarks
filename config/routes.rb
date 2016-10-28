@@ -1,8 +1,7 @@
 Usersapi::Application.routes.draw do
   resources :links
 
-  root :to => 'pages#home'
-
+root "links#index"
 
   devise_for :users, :controllers => { :registrations => :registrations }
   #root 'pages#home'

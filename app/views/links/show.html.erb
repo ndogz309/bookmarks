@@ -1,26 +1,37 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @link.url %>
-</p>
-
-<%= @link.title %>
+ <%= link_to "View origional", @link.url ,class: "btn btn-primary btn-lg"%>
 
 
-<% if @content != nil %>  
+ <%= link_to @link, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <span class="glyphicon glyphicon-trash"></span>
+              Delete
+            <% end %>
 
-it exisits
+<div class="row">
+  <div class="col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading center">
+       
+      
+      <div class="panel-body">
+       
+<% if @link.html != nil %> 
 
+<%= @link.html.html_safe %> 
 
 <% end %>
 
+        <%= link_to 'Back', links_path %>
+       
+      </div>
+    </div>
+  </div>
+</div>
 
 
-<%= @link.html.html_safe %>
 
 
 
 
-<%= link_to 'Edit', edit_link_path(@link) %> |
-<%= link_to 'Back', links_path %>
+
+
