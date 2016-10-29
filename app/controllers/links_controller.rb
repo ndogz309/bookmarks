@@ -5,19 +5,21 @@ require 'open-uri'
 require "pismo"
 
   before_action :set_link, only: [:show, :edit, :update, :destroy]
+ before_action :authenticate_user!
 
   respond_to :html
 
   def index
-    @links = Link.all
+
+    @user = current_user
+
+    @links = @user.links
 
 
     respond_with(@links)
   end
 
-  # def show
-  #   respond_with(@link)
-  # end
+
 
   def show
     @link = Link.find(params.fetch(:id))
@@ -41,10 +43,25 @@ require "pismo"
   end
 
 
-  def create
-    UrlParser.generate_link(params.fetch(:link).fetch(:url))
-    flash[:notice] = "Link was successfully created"
-    redirect_to links_path
+def create
+
+@url=params.fetch(:link).fetch(:url)
+doc = Pismo::Document.new(@url)
+
+
+doc2 = Nokogiri::HTML(open(@url))
+@content=doc2.to_html
+
+  @link = current_user.links.build(title: doc.title, url: @url,html:@content)
+    if @link.save
+      redirect_to @link, notice: 'Question was successfully created.'
+    else
+      render action: 'new'
+    end
+
+
+
+
   end
 
 
@@ -80,6 +97,6 @@ def correct_user
     end
 
     def link_params
-      params.require(:link).permit(:url,:title)
+      params.require(:link).permit(:url,:title,:html)
     end
 end
