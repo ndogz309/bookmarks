@@ -11,7 +11,7 @@ namespace :api   do
     
       resources :users, only: [:index, :create, :show, :update, :destroy], defaults: { format: 'json' }
       resources :sessions, :only => [:create, :destroy]
-      resources :links, :only => [:show,:index,:create,:update,:destroy]
+      resources :links, :only => [:show,:index,:create,:update,:destroy], defaults: { format: 'json' }
     end
   end
 
