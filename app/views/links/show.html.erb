@@ -17,12 +17,13 @@
        
        -->
 <!--       <div class="panel-body"> -->
-       
+ <div class="panel panel-default">      
 <% if @link.html != nil %> 
 
 <%= @link.html.html_safe %> 
 
 <% end %>
+</div>
 
         <%= link_to 'Back', links_path %>
        
