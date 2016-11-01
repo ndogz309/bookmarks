@@ -5,7 +5,7 @@ require 'open-uri'
 require "pismo"
 
   before_action :set_link, only: [:show, :edit, :update, :destroy]
- before_action :authenticate_user!
+ before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
@@ -13,8 +13,9 @@ require "pismo"
 
     @user = current_user
 
+if @user != nil
     @links = @user.links
-
+end
 
     respond_with(@links)
   end
