@@ -46,7 +46,10 @@ end
 
 def create
 
+
+
 @url=params.fetch(:link).fetch(:url)
+
 doc = Pismo::Document.new(@url)
 
 
@@ -55,7 +58,7 @@ doc2 = Nokogiri::HTML(open(@url))
 
   @link = current_user.links.build(title: doc.title, url: @url,html:@content)
     if @link.save
-      redirect_to @link, notice: 'Question was successfully created.'
+      redirect_to @link, notice: 'Link was saved'
     else
       render action: 'new'
     end
