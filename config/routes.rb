@@ -1,6 +1,6 @@
 Usersapi::Application.routes.draw do
   resources :links
-
+  resources :sales, only: [:index]
 root "links#index"
 
   devise_for :users, :controllers => { :registrations => :registrations }
