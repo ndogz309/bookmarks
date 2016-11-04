@@ -1,6 +1,7 @@
 
 <% if user_signed_in? %>
 
+<% if @links.any? %>
 <div id="links" class="transitions-enabled">
   <% @links.each do |link| %>
     <div class="box panel panel-default">
@@ -10,7 +11,6 @@
   </div>
 
       <div class="panel-body">
-
         <% if link.user == current_user %>
           <div class="actions">
             <%= link_to link, method: :delete, data: { confirm: 'Are you sure?' } do %>
@@ -25,6 +25,18 @@
   <% end %>
 </div>
 
+<%else%>
+
+<div class="jumbotron center">
+  <p>No shit saved yet</p>
+  <p>
+    <%= link_to new_link_path do %>
+      <span class="glyphicon glyphicon-plus"></span> New Link
+    <% end %>
+  </p>
+</div>
+
+<% end %>
 
 <%else%>
 
