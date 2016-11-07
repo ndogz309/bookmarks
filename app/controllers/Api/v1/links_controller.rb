@@ -1,6 +1,17 @@
 class Api::V1::LinksController <  Api::V1::BaseController
 include Authenticable
+
+require 'open-uri'
+require 'nokogiri'
+require "pismo"
+
 before_action :authenticate_with_token!, only: [:create,:update,:destroy,:index]
+
+  before_action :set_link, only: [:show, :edit, :update, :destroy]
+
+
+  respond_to :html
+
 
   respond_to :json
 
@@ -54,19 +65,41 @@ def destroy
   end
 
 
-  def create
+  # def create
 
-    link = current_user.links.build(link_params)
-    if link.save
+  #   link = current_user.links.build(link_params)
+  #   if link.save
+  #     render json: link, status: 201
+  #   else
+  #     render json: { errors: link.errors }, status: 422
+  #   end
+  # end
+
+
+def create
+
+@url=params.fetch(:link).fetch(:url)
+
+doc = Pismo::Document.new(@url)
+
+  doc2 = Nokogiri::HTML(open(@url))
+ @content=doc2.to_html
+
+link = current_user.links.build(title: doc.title, url: @url,html:@content)
+ if link.save
       render json: link, status: 201
     else
       render json: { errors: link.errors }, status: 422
     end
+
   end
 
+
+
+
   private
-   def link_params
-      params.require(:link).permit(:url)
+     def link_params
+      params.require(:link).permit(:url,:title,:html)
     end
 
 

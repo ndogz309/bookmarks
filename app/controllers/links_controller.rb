@@ -45,9 +45,7 @@ end
 
 
 def create
-
-
-
+  
 @url=params.fetch(:link).fetch(:url)
 
 doc = Pismo::Document.new(@url)
@@ -62,11 +60,9 @@ doc2 = Nokogiri::HTML(open(@url))
     else
       render action: 'new'
     end
-
-
-
-
   end
+
+
 
 
 
